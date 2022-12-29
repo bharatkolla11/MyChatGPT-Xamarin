@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MyChatGPT.Pages.DataPage" NavigationPage.BackButtonTitle="Back">
+
+    <Grid HorizontalOptions="FillAndExpand"
+         VerticalOptions="FillAndExpand"
+         RowDefinitions="Auto,*">
+
+        <Frame Grid.Row="0"
+              Padding="0"
+              Margin="0"
+              HasShadow="False"
+              BorderColor="Black">
+
+            <StackLayout Padding="0"
+                    Orientation="Horizontal">
+                <Entry HorizontalOptions="FillAndExpand"
+                       Text="{Binding UserEnteredText}"
+                       Placeholder="Enter Text"
+                       Keyboard="Email"
+                       ClearButtonVisibility="WhileEditing"/>
+                <Button Text="Submit"
+                        BackgroundColor="DarkViolet"
+                        TextColor="White"
+                        WidthRequest="75"
+                        Margin="5"
+                        Command="{Binding SubmitCommand}"/>
+
+
+            </StackLayout>
+
+        </Frame>
+
+        <CollectionView Grid.Row="1"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        ItemsSource="{Binding ImageViewSource}"
+                        IsVisible="{Binding ImageCollectionVisible}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Image Source="{Binding AIImageSource}"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               Aspect="AspectFit"
+                               WidthRequest="250"
+                               HeightRequest="250"/>
+
+                    </StackLayout>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+            
+
+
+        </CollectionView>
+
+
+
+    </Grid>
+</ContentPage>
+
