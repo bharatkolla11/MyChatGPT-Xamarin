@@ -7,5 +7,6 @@ namespace MyChatGPT.Services.ClientInfoServices
     public interface IClientInfoService
     {
         Task<ImageResponseModel> GetImages(string jSONData);
+        Task<TextResponseModel> GetText(string jSONData);
     }
 }

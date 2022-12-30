@@ -58,7 +58,39 @@
                 </DataTemplate>
 
             </CollectionView.ItemTemplate>
-            
+
+        </CollectionView>
+
+        <CollectionView Grid.Row="1"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        ItemsSource="{Binding TextViewSource}"
+                        IsVisible="{Binding TextCollectionVisible}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame CornerRadius="8"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand"
+                           HasShadow="False"
+                           BorderColor="Black"
+                           Padding="0">
+
+                        <Grid RowDefinitions="Auto,Auto">
+                            <Label Grid.Row="0" Text="{Binding Question}"/>
+                            <Label Grid.Row="1" Text="{Binding Answer}"/>
+                        </Grid>
+                    </Frame>
+
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
 
 
         </CollectionView>

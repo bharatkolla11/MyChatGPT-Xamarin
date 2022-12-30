@@ -4,25 +4,34 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MyChatGPT.Pages.HomePage" Title="{Binding PageTitle}">
 
-    <StackLayout HorizontalOptions="FillAndExpand"
-                 VerticalOptions="FillAndExpand"
-                 Padding="20"
-                 Spacing="20">
+    <Grid HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"
+          Padding="20"
+          RowDefinitions="Auto, Auto"
+          RowSpacing="10">
+
+        <Image Grid.Row="0"
+               WidthRequest="200"
+               HeightRequest="200"
+               Source="openai_avatar_logo.png"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="StartAndExpand"
+               />
 
 
-
-        <StackLayout HorizontalOptions="FillAndExpand"
+        <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand"
                  VerticalOptions="CenterAndExpand"
                  Spacing="20">
 
             <Button Text="Text Completion"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="CenterAndExpand"
-                BackgroundColor="DarkViolet"
-                FontAttributes="Bold"
-                TextColor="White"
-                CornerRadius="8"
-                Command="{Binding TextCompletionCommand}"/>
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="DarkViolet"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Command="{Binding SelectMyGPTCommand}"
+                    CommandParameter="Text"/>
 
             <Button Text="Image Generation"
                     HorizontalOptions="FillAndExpand"
@@ -31,10 +40,10 @@
                     FontAttributes="Bold"
                     TextColor="White"
                     CornerRadius="8"
-                    Command="{Binding ImageGenerationCommand}"
+                    Command="{Binding SelectMyGPTCommand}"
                     CommandParameter="Image"/>
 
         </StackLayout>
 
-    </StackLayout>
+    </Grid>
 </ContentPage>

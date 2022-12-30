@@ -142,4 +142,7 @@
       <Name>MyChatGPT</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\openai_avatar_logo.png" />
+  </ItemGroup>
 </Project>

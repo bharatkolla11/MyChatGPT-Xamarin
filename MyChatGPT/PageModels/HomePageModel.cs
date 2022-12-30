@@ -12,7 +12,8 @@ namespace MyChatGPT.PageModels
 
 
         #region #Commands#
-        public ICommand ImageGenerationCommand { get; }
+        public ICommand SelectMyGPTCommand { get; }
+
         #endregion
 
         public HomePageModel(IClientInfoService clientInfoService) : base(clientInfoService)
@@ -32,7 +33,7 @@ namespace MyChatGPT.PageModels
                 PageTitle = "Good Evening";
             }
 
-            ImageGenerationCommand = new Command(async (obj) => await NavigateToDataPage(obj));
+            SelectMyGPTCommand = new Command(async (obj) => await NavigateToDataPage(obj));
         }
 
         public override void Init(object initData)

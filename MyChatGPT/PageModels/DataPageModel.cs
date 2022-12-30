@@ -27,8 +27,20 @@ namespace MyChatGPT.PageModels
             }
         }
 
+        //TextViewSource
+        ObservableCollection<QACollection> _textViewSource { get; set; }
+        public ObservableCollection<QACollection> TextViewSource
+        {
+            get { return _textViewSource; }
+            set
+            {
+                _textViewSource = value;
+                RaisePropertyChanged("TextViewSource");
+            }
+        }
+
         //ImageViewSource
-       ObservableCollection<AIImageCollection> _imageViewSource { get; set; }
+        ObservableCollection<AIImageCollection> _imageViewSource { get; set; }
        public ObservableCollection<AIImageCollection> ImageViewSource
         {
             get { return _imageViewSource; }
@@ -51,6 +63,17 @@ namespace MyChatGPT.PageModels
             }
         }
 
+        //TextCollectionVisible
+        bool _textCollectionVisible = false;
+        public bool TextCollectionVisible
+        {
+            get { return _textCollectionVisible; }
+            set
+            {
+                _textCollectionVisible = value;
+                RaisePropertyChanged("TextCollectionVisible");
+            }
+        }
         #region #Commands#
 
         public ICommand SubmitCommand { get; }
@@ -64,37 +87,62 @@ namespace MyChatGPT.PageModels
 
         private async Task DisplayData()
         {
-            UserDialogs.Instance.ShowLoading("Getting Images");
-
             if (string.IsNullOrEmpty(UserEnteredText))
             {
                 return;
             }
 
-            if (ImageViewSource.Count > 0)
+            if (ImageCollectionVisible)
             {
-                ImageViewSource.Clear();
-            }
+                UserDialogs.Instance.ShowLoading("Getting Images");
 
-        
-
-            Dictionary<string, object> postData = new Dictionary<string, object>();
-            postData.Add("prompt", UserEnteredText);
-            postData.Add("n", 5);
-
-            string postDataString = JsonConvert.SerializeObject(postData);
-
-            var response = await _clientInfoService.GetImages(postDataString);
-
-            if (response != null && response.data.Count > 0)
-            {
-                foreach(var imageData in response.data)
+                if (ImageViewSource.Count > 0)
                 {
-                    ImageViewSource.Add(new AIImageCollection { AIImageSource = imageData.url });
+                    ImageViewSource.Clear();
                 }
-            }
 
-            UserDialogs.Instance.HideLoading();
+                Dictionary<string, object> postData = new Dictionary<string, object>();
+                postData.Add("prompt", UserEnteredText);
+                postData.Add("n", 5);
+
+                string postDataString = JsonConvert.SerializeObject(postData);
+
+                var response = await _clientInfoService.GetImages(postDataString);
+
+                if (response != null && response.data.Count > 0)
+                {
+                    foreach (var imageData in response.data)
+                    {
+                        ImageViewSource.Add(new AIImageCollection { AIImageSource = imageData.url });
+                    }
+                }
+
+                UserDialogs.Instance.HideLoading();
+            }
+            else
+            {
+                UserDialogs.Instance.ShowLoading("Getting Text");
+
+                Dictionary<string, object> postData = new Dictionary<string, object>();
+                postData.Add("prompt", UserEnteredText);
+                postData.Add("model", "text-davinci-003");
+                postData.Add("max_tokens", 2048);
+
+
+                string postDataString = JsonConvert.SerializeObject(postData);
+
+                var response = await _clientInfoService.GetText(postDataString);
+
+                if (response != null && response.choices.Count > 0)
+                {
+                    foreach (var textData in response.choices)
+                    {
+                        TextViewSource.Add(new QACollection { Question = "Question: " + UserEnteredText, Answer= "Answer: " + textData.text});
+                    }
+                }
+
+                UserDialogs.Instance.HideLoading();
+            }
 
         }
 
@@ -107,6 +155,12 @@ namespace MyChatGPT.PageModels
             {
                 ImageCollectionVisible = true;
                 ImageViewSource = new ObservableCollection<AIImageCollection>();
+            }
+
+            if(param.Equals("Text", StringComparison.OrdinalIgnoreCase))
+            {
+                TextCollectionVisible = true;
+                TextViewSource = new ObservableCollection<QACollection>();
             }
 
         }
