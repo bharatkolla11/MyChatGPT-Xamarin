@@ -87,63 +87,70 @@ namespace MyChatGPT.PageModels
 
         private async Task DisplayData()
         {
-            if (string.IsNullOrEmpty(UserEnteredText))
+            try
             {
-                return;
-            }
-
-            if (ImageCollectionVisible)
-            {
-                UserDialogs.Instance.ShowLoading("Getting Images");
-
-                if (ImageViewSource.Count > 0)
+                if (string.IsNullOrEmpty(UserEnteredText))
                 {
-                    ImageViewSource.Clear();
+                    return;
                 }
 
-                Dictionary<string, object> postData = new Dictionary<string, object>();
-                postData.Add("prompt", UserEnteredText);
-                postData.Add("n", 5);
-
-                string postDataString = JsonConvert.SerializeObject(postData);
-
-                var response = await _clientInfoService.GetImages(postDataString);
-
-                if (response != null && response.data.Count > 0)
+                if (ImageCollectionVisible)
                 {
-                    foreach (var imageData in response.data)
+                    UserDialogs.Instance.ShowLoading("Getting Images");
+
+                    if (ImageViewSource.Count > 0)
                     {
-                        ImageViewSource.Add(new AIImageCollection { AIImageSource = imageData.url });
+                        ImageViewSource.Clear();
                     }
-                }
 
-                UserDialogs.Instance.HideLoading();
-            }
-            else
-            {
-                UserDialogs.Instance.ShowLoading("Getting Text");
+                    Dictionary<string, object> postData = new Dictionary<string, object>();
+                    postData.Add("prompt", UserEnteredText);
+                    postData.Add("n", 5);
 
-                Dictionary<string, object> postData = new Dictionary<string, object>();
-                postData.Add("prompt", UserEnteredText);
-                postData.Add("model", "text-davinci-003");
-                postData.Add("max_tokens", 2048);
+                    string postDataString = JsonConvert.SerializeObject(postData);
 
+                    var response = await _clientInfoService.GetImages(postDataString);
 
-                string postDataString = JsonConvert.SerializeObject(postData);
-
-                var response = await _clientInfoService.GetText(postDataString);
-
-                if (response != null && response.choices.Count > 0)
-                {
-                    foreach (var textData in response.choices)
+                    if (response != null && response.data.Count > 0)
                     {
-                        TextViewSource.Add(new QACollection { Question = "Question: " + UserEnteredText, Answer= "Answer: " + textData.text});
+                        foreach (var imageData in response.data)
+                        {
+                            ImageViewSource.Add(new AIImageCollection { AIImageSource = imageData.url });
+                        }
                     }
+
+                    UserDialogs.Instance.HideLoading();
+                }
+                else
+                {
+                    UserDialogs.Instance.ShowLoading("Getting Text");
+
+                    Dictionary<string, object> postData = new Dictionary<string, object>();
+                    postData.Add("prompt", UserEnteredText);
+                    postData.Add("model", "text-davinci-003");
+                    postData.Add("max_tokens", 2048);
+
+
+                    string postDataString = JsonConvert.SerializeObject(postData);
+
+                    var response = await _clientInfoService.GetText(postDataString);
+
+                    if (response != null && response.choices.Count > 0)
+                    {
+                        foreach (var textData in response.choices)
+                        {
+                            TextViewSource.Add(new QACollection { Question = "Question: " + UserEnteredText, Answer = "Answer: " + textData.text });
+                        }
+                    }
+                    UserDialogs.Instance.HideLoading();
                 }
 
-                UserDialogs.Instance.HideLoading();
+                UserEnteredText = string.Empty;
             }
-
+            catch(Exception ex)
+            {
+                await CoreMethods.DisplayAlert("Error", "DisplayData Exception: " + ex.Message, "OK");
+            }
         }
 
         public override void Init(object initData)
