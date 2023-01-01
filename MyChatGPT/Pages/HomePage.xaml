@@ -2,11 +2,12 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="MyChatGPT.Pages.HomePage" Title="{Binding PageTitle}">
+    x:Class="MyChatGPT.Pages.HomePage"
+    NavigationPage.HasNavigationBar="false" BackgroundColor="Black">
 
     <Grid HorizontalOptions="FillAndExpand"
           VerticalOptions="FillAndExpand"
-          Padding="20"
+          Padding="20,75,20,20"
           RowDefinitions="Auto, Auto"
           RowSpacing="10">
 

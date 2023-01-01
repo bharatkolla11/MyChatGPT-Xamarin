@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -74,6 +75,17 @@ namespace MyChatGPT.PageModels
                 RaisePropertyChanged("TextCollectionVisible");
             }
         }
+
+        ObservableCollection<QACollection> _temptextCollection;
+        public ObservableCollection<QACollection> TempTextCollection
+        {
+            get { return _temptextCollection; }
+            set
+            {
+                _temptextCollection = value;
+                RaisePropertyChanged("TempTextCollection");
+            }
+        }
         #region #Commands#
 
         public ICommand SubmitCommand { get; }
@@ -139,7 +151,8 @@ namespace MyChatGPT.PageModels
                     {
                         foreach (var textData in response.choices)
                         {
-                            TextViewSource.Add(new QACollection { Question = "Question: " + UserEnteredText, Answer = "Answer: " + textData.text });
+                            TempTextCollection.Add(new QACollection { Question = "Question: " + UserEnteredText, Answer = "Answer: " + textData.text });
+                            TextViewSource = new ObservableCollection<QACollection>(TempTextCollection.Reverse());
                         }
                     }
                     UserDialogs.Instance.HideLoading();
@@ -149,6 +162,7 @@ namespace MyChatGPT.PageModels
             }
             catch(Exception ex)
             {
+                UserDialogs.Instance.HideLoading();
                 await CoreMethods.DisplayAlert("Error", "DisplayData Exception: " + ex.Message, "OK");
             }
         }
@@ -162,12 +176,14 @@ namespace MyChatGPT.PageModels
             {
                 ImageCollectionVisible = true;
                 ImageViewSource = new ObservableCollection<AIImageCollection>();
+                PageTitle = "Image";
             }
 
             if(param.Equals("Text", StringComparison.OrdinalIgnoreCase))
             {
                 TextCollectionVisible = true;
-                TextViewSource = new ObservableCollection<QACollection>();
+                TempTextCollection = new ObservableCollection<QACollection>();
+                PageTitle = "Text";
             }
 
         }
