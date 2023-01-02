@@ -3,12 +3,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MyChatGPT.Pages.HomePage"
-    NavigationPage.HasNavigationBar="false" BackgroundColor="Black">
+    NavigationPage.HasNavigationBar="false" BackgroundColor="{StaticResource AppBlackColor}">
 
     <Grid HorizontalOptions="FillAndExpand"
           VerticalOptions="FillAndExpand"
           Padding="20,75,20,20"
-          RowDefinitions="Auto, Auto"
+          RowDefinitions="Auto, *"
           RowSpacing="10">
 
         <Image Grid.Row="0"
@@ -20,27 +20,18 @@
                />
 
 
-        <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand"
-                 VerticalOptions="CenterAndExpand"
-                 Spacing="20">
+        <StackLayout Grid.Row="1"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="StartAndExpand"
+                 Spacing="{StaticResource PageSpacing}">
 
             <Button Text="Text Completion"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="CenterAndExpand"
-                    BackgroundColor="DarkViolet"
-                    FontAttributes="Bold"
-                    TextColor="White"
-                    CornerRadius="8"
+                    Style="{StaticResource MyAppButtonStyle}"
                     Command="{Binding SelectMyGPTCommand}"
                     CommandParameter="Text"/>
 
             <Button Text="Image Generation"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="CenterAndExpand"
-                    BackgroundColor="DarkViolet"
-                    FontAttributes="Bold"
-                    TextColor="White"
-                    CornerRadius="8"
+                    Style="{StaticResource MyAppButtonStyle}"
                     Command="{Binding SelectMyGPTCommand}"
                     CommandParameter="Image"/>
 

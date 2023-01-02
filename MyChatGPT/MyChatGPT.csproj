@@ -27,6 +27,7 @@
     <None Remove="Services\ClientInfoServices\" />
     <None Remove="ServiceModels\" />
     <None Remove="Acr.UserDialogs" />
+    <None Remove="Styles\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -35,5 +36,6 @@
     <Folder Include="Pages\" />
     <Folder Include="Services\ClientInfoServices\" />
     <Folder Include="ServiceModels\" />
+    <Folder Include="Styles\" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MyChatGPT.Styles.GeneralDeviceStyles">
+
+    <OnIdiom  x:TypeArguments="x:Double" Tablet="30" Phone="20" x:Key="PageSpacing" />
+    <OnIdiom  x:TypeArguments="Thickness" Tablet="30" Phone="20" x:Key="PagePadding" />
+
+    <Style TargetType="Button" x:Key="MyAppButtonStyle">
+        <Setter Property="HeightRequest">
+            <Setter.Value>
+                <OnIdiom x:TypeArguments="x:Double" Phone="60" Tablet="100"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <OnIdiom x:TypeArguments="x:Double" Phone="20" Tablet="28"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        <Setter Property="TextColor" Value="{StaticResource AppWhiteColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource AppVioletColor}" />
+    </Style>
+
+    <Style TargetType="Entry" x:Key="MyAppEntryStyle">
+        <Setter Property="HeightRequest">
+            <Setter.Value>
+                <OnIdiom x:TypeArguments="x:Double" Phone="40" Tablet="75"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <OnIdiom x:TypeArguments="x:Double" Phone="16" Tablet="24"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="ClearButtonVisibility" Value="WhileEditing"/>
+        <Setter Property="Keyboard" Value="Email"/>
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+    </Style>
+
+    <Style TargetType="Button" x:Key="MyAppSubmitButtonStyle">
+        <Setter Property="HeightRequest">
+            <Setter.Value>
+                <OnIdiom x:TypeArguments="x:Double" Phone="40" Tablet="60"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="WidthRequest">
+            <Setter.Value>
+                <OnIdiom x:TypeArguments="x:Double" Phone="60" Tablet="150"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <OnIdiom x:TypeArguments="x:Double" Phone="16" Tablet="22"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        <Setter Property="TextColor" Value="{StaticResource AppWhiteColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource AppVioletColor}" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="MyAppLabelStyle">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <OnIdiom x:TypeArguments="x:Double" Phone="18" Tablet="22"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+        <Setter Property="TextColor" Value="{StaticResource AppBlackColor}"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+    </Style>
+</ResourceDictionary>
+

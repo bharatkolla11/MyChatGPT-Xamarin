@@ -4,9 +4,16 @@
              xmlns:freshMvvm="clr-namespace:FreshMvvm;assembly=FreshMvvm"
              x:Class="MyChatGPT.App">
     <Application.Resources>
+
+        <ResourceDictionary x:Name="MyChatGPTdictionary">
+            <Color x:Key="AppWhiteColor">#FFFFFF</Color>
+            <Color x:Key="AppBlackColor">#000000</Color>
+            <Color x:Key="AppVioletColor">#3700B3</Color>
+        </ResourceDictionary>
+
         <Style TargetType="freshMvvm:FreshNavigationContainer">
-            <Setter Property="BarBackgroundColor" Value="Black"/>
-            <Setter Property="BarTextColor" Value="White"/>
+            <Setter Property="BarBackgroundColor" Value="{StaticResource AppBlackColor}"/>
+            <Setter Property="BarTextColor" Value="{StaticResource AppWhiteColor}"/>
         </Style>
     </Application.Resources>
 </Application>
